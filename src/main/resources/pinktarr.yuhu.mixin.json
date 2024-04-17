@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.PinkTarr.YUHUMod.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MainPatch"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "pinktarr.yuhu.mixin.json",
+  "minVersion": "0.8"
+}
