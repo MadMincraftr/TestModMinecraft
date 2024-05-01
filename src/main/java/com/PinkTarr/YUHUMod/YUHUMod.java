@@ -1,5 +1,6 @@
 package com.PinkTarr.YUHUMod;
 
+import com.PinkTarr.YUHUMod.NetworkPacket.YUHUPacketHandler;
 import com.PinkTarr.YUHUMod.command.SetupSecret;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import com.mojang.logging.LogUtils;
@@ -25,7 +26,6 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.eventbus.service.*;
 import net.minecraftforge.eventbus.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -91,7 +91,14 @@ public class YUHUMod
     		}
         	 event.setCanceled(false);
         	 return;
-        }@SubscribeEvent
+        }
+
+        @SubscribeEvent
+        public static void commonSetup(FMLCommonSetupEvent event){
+            event.enqueueWork(() -> YUHUPacketHandler.setup());
+        }
+
+        @SubscribeEvent
         public static void onCommandsRegister(RegisterCommandsEvent event) {
         	new SetupSecret(event.getDispatcher());
         }
