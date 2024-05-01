@@ -16,16 +16,11 @@ public class Config
 
     private static final ForgeConfigSpec.BooleanValue ALL_WILL_KILL_NOAH = BUILDER
     .comment("(:")
-    .define("fuckYouNoah", true);
-    private static final ForgeConfigSpec.ConfigValue<String> CUSTOM_USER_NAME = BUILDER
-    .comment("The Noah thing but for any player.")
-    .define("customPlayerName", "Nooooooah820");
+    .define("Secret mode", false);
     
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
     public static boolean fuckYouNoah;
-
-    public static String customPlayerUsername;
 
     @SuppressWarnings("unused")
     private static boolean validateItemName(final Object obj)
@@ -37,6 +32,5 @@ public class Config
     static void onLoad(final ModConfigEvent event)
     {
     	fuckYouNoah = ALL_WILL_KILL_NOAH.get();
-        customPlayerUsername = CUSTOM_USER_NAME.get();
     }
 }

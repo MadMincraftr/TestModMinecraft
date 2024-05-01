@@ -2,6 +2,8 @@ package com.PinkTarr.YUHUMod;
 
 import com.PinkTarr.YUHUMod.NetworkPacket.YUHUPacketHandler;
 import com.PinkTarr.YUHUMod.command.SetupSecret;
+import com.PinkTarr.YUHUMod.command.SetupSecretAlt;
+
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.damagesource.DamageSource;
@@ -101,6 +103,7 @@ public class YUHUMod
         @SubscribeEvent
         public static void onCommandsRegister(RegisterCommandsEvent event) {
         	new SetupSecret(event.getDispatcher());
+            new SetupSecretAlt(event.getDispatcher());
         }
     }
 }
