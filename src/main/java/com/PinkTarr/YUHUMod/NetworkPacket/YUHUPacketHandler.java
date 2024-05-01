@@ -13,8 +13,9 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 public class YUHUPacketHandler {
 	public static final String protVer = "1";
-	public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("yuhumod","main"), () ->  protVer, protVer::equals, protVer::equals);
+	public static SimpleChannel INSTANCE;
 	public static void setup(){
+		INSTANCE = NetworkRegistry.newSimpleChannel(new ResourceLocation("yuhumod","main"), () ->  protVer, protVer::equals, protVer::equals);
 		INSTANCE.messageBuilder(NoahSecretModeEnablePacket.class, 0).encoder(NoahSecretModeEnablePacket::encode).decoder(NoahSecretModeEnablePacket::new).consumerMainThread(YUHUPacketHandler::HandleNoahSecretMode);
 		INSTANCE.messageBuilder(UserSecretModeEnablePacket.class, 1).encoder(UserSecretModeEnablePacket::encode).decoder(UserSecretModeEnablePacket::new).consumerMainThread(YUHUPacketHandler::HandleUserSecretMode);
 	}
