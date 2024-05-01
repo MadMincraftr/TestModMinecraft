@@ -15,7 +15,12 @@ on:
 
 jobs:
   build:
-
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Jar
+          installer_path: './build/libs/yuhu_mod-1.0.0.jar'
     runs-on: ubuntu-latest
 
     steps:
