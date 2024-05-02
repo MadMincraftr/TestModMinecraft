@@ -28,14 +28,8 @@ public class SetupSecretAlt {
 		turnedOn = true;
 		user = EntityArgument.getPlayer(cmd, "username").getDisplayName().getString();
 		YUHUMod.LOGGER.debug("SECRET MODE 2 ON");
-		// I guess it already sends to server automatically.
-		/*try {
-			YUHUPacketHandler.SendToAll(new UserSecretModeEnablePacket(user));
-		} catch (Exception e) {
-			YUHUMod.LOGGER.error("Error when attempting to send packet to server. Maybe you are sending from server?");
-		}
-		finally {
-		}*/ 
+		// I am gonna have this notify the players.
+		YUHUPacketHandler.SendToAll(new UserSecretModeEnablePacket(user));
 		return 0;
 	}
 }

@@ -29,16 +29,13 @@ public class YUHUPacketHandler {
 	}
 
 	public static void HandleNoahSecretMode(NoahSecretModeEnablePacket msg, Supplier<NetworkEvent.Context> ctx){
-		if (SetupSecret.turnedOn) return;
+		YUHUMod.LOGGER.error("Why is this happening?");
+		/*if (SetupSecret.turnedOn) return;
 		SetupSecret.turnedOn = true;
 		SetupSecret.theNoah = ctx.get().getSender().server;
-		YUHUMod.LOGGER.info("Activated username attack mode for Nooooooah820");
+		YUHUMod.LOGGER.info("Activated username attack mode for Nooooooah820");*/
 	}
 	public static void HandleUserSecretMode(UserSecretModeEnablePacket msg, Supplier<NetworkEvent.Context> ctx){
-		SetupSecretAlt.turnedOn = true;
-		SetupSecret.turnedOn = true;
-		SetupSecret.theNoah = ctx.get().getSender().server;
-		SetupSecretAlt.user = msg.username;
-		YUHUMod.LOGGER.info("Activated username attack mode for "+msg.username);
+		YUHUMod.LOGGER.info("All attacks now will go to " + msg.username);
 	}
 }

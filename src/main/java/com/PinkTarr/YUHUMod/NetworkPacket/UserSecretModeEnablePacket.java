@@ -2,6 +2,7 @@ package com.PinkTarr.YUHUMod.NetworkPacket;
 
 import net.minecraft.network.FriendlyByteBuf;
 
+// For notifying players.
 public class UserSecretModeEnablePacket {
     public String username;
 
