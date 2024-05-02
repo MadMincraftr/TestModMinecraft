@@ -12,7 +12,13 @@ public class SetupSecretAlt {
 	public static boolean turnedOn;
 	public static String user;
 	public SetupSecretAlt(CommandDispatcher<CommandSourceStack> dispatcher){
-		dispatcher.register(Commands.literal("yuhu/customuser").then(Commands.argument("username", EntityArgument.player())).executes((command) -> {return EXC(command);}));
+		dispatcher.register(
+			Commands.literal("yuhu")
+			.then(Commands.literal("customuser")
+			.then(Commands.argument("username", EntityArgument.player())
+			.executes((command) -> {return EXC(command);})))
+			
+		);
 	}
 	
 	public int EXC(CommandContext<CommandSourceStack> cmd) throws CommandSyntaxException{
@@ -22,7 +28,14 @@ public class SetupSecretAlt {
 		turnedOn = true;
 		user = EntityArgument.getPlayer(cmd, "username").getDisplayName().getString();
 		YUHUMod.LOGGER.debug("SECRET MODE 2 ON");
-		YUHUPacketHandler.SendToServer(new UserSecretModeEnablePacket(user));
+		// I guess it already sends to server automatically.
+		/*try {
+			YUHUPacketHandler.SendToAll(new UserSecretModeEnablePacket(user));
+		} catch (Exception e) {
+			YUHUMod.LOGGER.error("Error when attempting to send packet to server. Maybe you are sending from server?");
+		}
+		finally {
+		}*/ 
 		return 0;
 	}
 }
