@@ -56,7 +56,7 @@ public class YUHUMod
             LOGGER.info("Fuck you noah; or whoever the command attacks");
     }
 
-    public String getPlayerNameToKill(){
+    public static String getPlayerNameToKill(){
         if (SetupSecretAlt.turnedOn){
             return SetupSecretAlt.user;
         }
@@ -92,7 +92,7 @@ public class YUHUMod
     			   if (!(SetupSecret.turnedOn))event.getSource().getEntity().hurt(event.getEntity().damageSources().genericKill(), event.getAmount());
     			   else {
     				   if (SetupSecret.theNoah != null) {
-    					   var noah = SetupSecret.theNoah.getPlayerList().getPlayerByName("");
+    					   var noah = SetupSecret.theNoah.getPlayerList().getPlayerByName(getPlayerNameToKill());
     					   if (noah != null)
     						   noah.hurt(event.getEntity().damageSources().genericKill(),event.getAmount());
         				   
