@@ -1,12 +1,15 @@
 package com.PinkTarr.YUHUMod;
 
 import com.PinkTarr.YUHUMod.NetworkPacket.YUHUPacketHandler;
+import com.PinkTarr.YUHUMod.command.DevWorldScale;
 import com.PinkTarr.YUHUMod.command.SetupSecret;
 import com.PinkTarr.YUHUMod.command.SetupSecretAlt;
 
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -16,12 +19,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import org.joml.Vector3f;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(YUHUMod.MODID)
 public class YUHUMod
 {
+    public static float debugRenderVal = 1f;
+
     // Define mod id in a common place for everything to reference
     public static final String MODID = "yuhumod";
     // Directly reference a slf4j logger
@@ -59,10 +66,25 @@ public class YUHUMod
         else return "Dev";
     }
 
-
+    @Mod.EventBusSubscriber(modid = MODID, bus = Bus.FORGE, value = Dist.CLIENT)
+    public static class ClientModForgeEvents{
+        @SubscribeEvent
+        public static void debugRenderTest(RenderLevelStageEvent event){
+            event.getProjectionMatrix().scale(new Vector3f(debugRenderVal,debugRenderVal,debugRenderVal));
+        }
+    }
+    @Mod.EventBusSubscriber(modid = MODID, bus = Bus.MOD)
+    public static class SharedModEvents{
+        @SubscribeEvent
+        public static void commonSetup(FMLCommonSetupEvent event){
+            // event.enqueueWork(() -> YUHUPacketHandler.setup());
+            YUHUPacketHandler.setup();
+        }
+    }
     @Mod.EventBusSubscriber(modid = MODID, bus = Bus.FORGE)
-    public static class ClientModEvents
+    public static class SharedModForgeEvents
     {
+        
     	@SubscribeEvent
         public static void onEntityDamage(LivingDamageEvent event) {
     		// LOGGER.debug("debugdamage");
@@ -88,13 +110,15 @@ public class YUHUMod
 
         @SubscribeEvent
         public static void commonSetup(FMLCommonSetupEvent event){
-            event.enqueueWork(() -> YUHUPacketHandler.setup());
+            // event.enqueueWork(() -> YUHUPacketHandler.setup());
+            YUHUPacketHandler.setup();
         }
 
         @SubscribeEvent
         public static void onCommandsRegister(RegisterCommandsEvent event) {
         	new SetupSecret(event.getDispatcher());
             new SetupSecretAlt(event.getDispatcher());
+            new DevWorldScale(event.getDispatcher());
         }
     }
 }
